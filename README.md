@@ -1,1 +1,1 @@
-Skoltech course "Theoretical Methods of Deep Learning"
+Skoltech course "Recomender Systems"
