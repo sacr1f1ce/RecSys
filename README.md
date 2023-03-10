@@ -1,1 +1,1 @@
-Skoltech course "Recomender Systems"
+Skoltech course "Recommender Systems"
