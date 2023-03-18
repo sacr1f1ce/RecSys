@@ -23,7 +23,7 @@ def echo_message(message):
         bot.send_message(message.chat.id,
                              text=f'Not enough info')
     else:
-        p = np.zeros(13686)
+        p = np.zeros(M.shape[-1])
         #print(ratings[name])
         for anime_id, score in ratings[name].items():
             p[anime_id] = score
@@ -44,13 +44,14 @@ def echo_message(message):
     keys = []
     for i in range(1, 11):
         keys.append(types.InlineKeyboardButton(text=f'{i}', callback_data=i))
+    keys.append(types.InlineKeyboardButton(text='Did not watch', callback_data=-1))
     keyboard.add(*keys)
     
     anime_id = popular_row[len(ratings[name])]
     request_user[name] = anime_id
 
     bot.send_message(
-        message.from_user.id, 
+        message.chat.id, 
         text=f'Please rate {id2name[str(item_id[anime_id])]}', 
         reply_markup=keyboard
         )
@@ -58,11 +59,16 @@ def echo_message(message):
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_worker(call):
+    response = int(call.data)
     name = call.from_user.username
-    ratings[name][request_user[name]] = call.data
-    bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.id,
-                           text=f'{id2name[str(item_id[request_user[name]])]}: {call.data}')   
-                
+    if response > 0:
+        print('TEST')
+        ratings[name][request_user[name]] = response
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.id, 
+                              text=f'{id2name[str(item_id[request_user[name]])]}: {response}')
+    else:
+        ratings[name][request_user[name]] = 0
+        bot.delete_message(chat_id=call.message.chat.id, message_id=call.message.id)
 
 
 bot.polling()
