@@ -2,7 +2,7 @@ import numpy as np
 import json
 import os
 import sys
-
+from utils import map_ind
 
 os.chdir(sys.path[0] + '/data')
 
@@ -19,4 +19,4 @@ name2id = json.load(g)
 f.close, g.close
 
 popular_id = [20, 269, 22319, 6702, 1535, 30, 199, 1575, 523, 33, 16498, 30276, 5114, 11757, 31964, 11061, 1, 28223, 11111, 3588, 813,18679, 13601, 34572, 29803, 33352, 35120]
-popular_row = [np.where(item_id == i)[0][0] for i in popular_id] #so ugly
+popular_row = map_ind(popular_id, item_id) #so ugly
