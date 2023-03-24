@@ -4,3 +4,6 @@ data_full.csv
 HW1_Nuzhnov.zip
 training
 skoltech-recommender-systems-challenge-2023.zip
+__pycache__/
+.ipynb_checkpoints
+animelists_cleaned.csv
