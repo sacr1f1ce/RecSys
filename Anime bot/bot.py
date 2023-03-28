@@ -157,7 +157,7 @@ def callback_worker(call):
         keys = []
         for i in range(1, 10):
             keys.append(types.InlineKeyboardButton(text=f'{15 + (i - 1) * 4} - {15 + i * 4}', callback_data=i + 1000))
-        keys.append(types.InlineKeyboardButton(text='50+', callback_data=1010))
+        keys.append(types.InlineKeyboardButton(text='51+', callback_data=1010))
         keyboard.add(*keys)
 
         bot.send_message(
@@ -199,7 +199,7 @@ def callback_worker(call):
     else:
         response = int(call.data)
         if response >= 1000:
-            user_feats[name][response - 997] = 1
+            user_feats[name][response - 998] = 1
             recs = cold_start(user_feats[name])
             for id_ in topn_recommendations(recs[0]):
                 bot.send_message(call.message.chat.id, 
